@@ -100,4 +100,13 @@ public class  AddressBookController {
         //SQL:select * from address_book where user_id = ? order by update_time desc
         return R.success(addressBookService.list(queryWrapper));
     }
+
+    @DeleteMapping
+    public R<String> delete(Long ids){
+
+        LambdaQueryWrapper<AddressBook> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(ids!=null,AddressBook::getId,ids);
+        addressBookService.remove(lqw);
+        return R.success("删除成功");
+    }
 }
